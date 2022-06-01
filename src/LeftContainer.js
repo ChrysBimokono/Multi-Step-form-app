@@ -1,3 +1,7 @@
+import { useState } from "react";
+import TextInput from "./TextInput";
+import ButtonGroup from "./ButtonGroup";
+
 const TEXT = [
   "Apply to work with our agency",
   "what's your budget?",
@@ -6,19 +10,21 @@ const TEXT = [
 ];
 
 export default function LeftContainer({ stage, setStage }) {
+  const [email, setEmail] = useState("");
+  const [buttonSelection, setButtonSelection] = useState("");
+  const [details, setDetails] = useState("");
+
   let content;
   if (stage === 0) {
-    content = <input type="text" placeholder="what's your email" />;
-  } else if (stage === 1) {
     content = (
-      <div className="content-stage1">
-        <button> $2k</button>
-        <button>$5k</button>
-        <button>No limit</button>
-      </div>
+      <TextInput placeholder="what's your email" updateValue={setEmail} />
     );
+  } else if (stage === 1) {
+    content = <ButtonGroup updateValue={setButtonSelection} />;
   } else if (stage === 2) {
-    content = <div className="content-stage2"></div>;
+    content = <TextInput updateValue={setDetails} />;
+  } else if (stage === 3) {
+    alert(JSON.stringify({ email, buttonSelection, details }));
   }
   return (
     <div className="left-container">
